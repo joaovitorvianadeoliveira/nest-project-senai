@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { TelegramService } from "./telegram.service";
 import { ApiTags } from "@nestjs/swagger";
+import { seendMessageDto } from "./dto/sendMessage.dto";
 
 @ApiTags('Telegram')
 @Controller()
@@ -9,7 +10,7 @@ export class TelegramController{
         
     }
     @Post()
-    sendMenssage(@Body() dotMessage: {message: string, chatId: number, tokenbot: string } ){
-        this.telegramService.sendtelegrafTeXT(dotMessage)
+    sendMenssage(@Body() dotMessage: seendMessageDto){
+        this.telegramService.sendtelegrafTeXT({message:dotMessage.message, chatId: dotMessage.chatId, tokenbot: dotMessage.tokenbot})
     }
     }
