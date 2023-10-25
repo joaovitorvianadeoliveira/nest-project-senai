@@ -17,6 +17,7 @@ async function bootstrap() {
     .addTag('Status')
     .addTag('Auth')
     .addTag('User')
+    .addTag('telegram')
     .addBearerAuth()
     .build();
 
