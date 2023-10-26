@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { buffer } from 'stream/consumers';
 import { Telegraf } from 'telegraf';
 import { MediaGroup } from 'telegraf/typings/telegram-types';
+import { seendMessageDto } from './dto/sendMessage.dto';
 
 @Injectable()
 export class TelegramService {
@@ -17,7 +18,7 @@ export class TelegramService {
   base64ToImage(base64: string): Buffer{
 
     const base64Data = base64.replace(/^data:imagem\/jpeg;base64,/, '')
-    return Buffer.from(base64Data)
+    return Buffer.from(base64Data,'base64')
    }
 
   async sendtelegrafTeXT({ message, chatId, tokenbot }: { message: string, chatId: number, tokenbot: string }) {
@@ -32,10 +33,10 @@ export class TelegramService {
   }
 
   async sendtelegrafMedia(
-    message: string,
-    chatId: string,
-    tokenbot: string,
-    imagens: string[],
+    {message,
+    chatId,
+    tokenbot,
+    imagens }:seendMessageDto
   ) {
 
     const bot = new Telegraf(tokenbot)
